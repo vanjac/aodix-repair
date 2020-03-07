@@ -1,0 +1,90 @@
+Aodix v4 .adx File Format Description
+=====================================
+
+I found this by reverse engineering with a hex editor. Some of the information may be inaccurate or incomplete.
+
+Little endian
+
+0x00000000  dword: "ADX4"
+0x00000004  dword: Version number (as integer, eg. 4201)
+0x00000008  32 chars: Project name (UI allows 26 chars)
+0x00000028  32 chars: Project comment (UI allows 26 chars)
+0x00000048  double: Tempo
+
+0x00000050  Pattern table. 0x2C60 bytes x 256 patterns = 0x002C6000 bytes.
+    +0x0000     32 chars: Pattern name (UI allows 14 chars)
+    +0x0020     Track table. 36 bytes x 256 tracks = 0x2400 bytes
+        +0x0000     32 chars: Track name (UI allows 14 chars)
+        +0x0020     byte: Mute (0 or 1)
+        +0x0021     byte: Solo
+        +0x0022     2 bytes: Always 0?
+    +0x2420     dword: Start marker time
+    +0x2424     dword: End marker time
+    +0x2428     dword: Stop marker time (0 for disabled)
+    +0x242C     dword: Always 0?
+    +0x2430     dword: Cursor time
+    +0x2434     dword: Zoom
+    +0x2438     dword: Pre-release
+    +0x243C     dword: Mode (Event/Pattern)
+    +0x2440     32 bytes: Always 0?
+    +0x2460     Marker table. 8 bytes x 256 markers = 0x0800 bytes.
+        +0x0000     dword: Marker time. 0th marker is always 0.
+        +0x0004     dword: Marker enabled (0 or 1). Deleted markers may still keep their time.
+
+0x002C6050  dword: Time signature beats (3, 4, or 5)
+0x002C6054  dword: Always 4? (time signature note value?)
+0x002C6058  dword: PPQN
+0x002C605C  dword: Always 0?
+
+0x002C6060  dword: Num events
+0x002C6064  Event table. 16 bytes per event. Not sorted.
+    +0x0000     dword: Time
+    +0x0004     dword: Length
+    +0x0008     byte: Pattern num
+    +0x0009     byte: Track num
+    +0x000A     byte: Event type. 0 = note, 1 = Pat, 2 = Jmp, 3 = Mid, 4 = Aut, 5 = Tmp, 
+    +0x000B     byte: Resizable (0 or 1) ?
+    +0x000C     4 bytes: Event data
+
+0xXXXXXXXX  VST instance table. 256 instances, min 1 byte each.
+    +0x0000     byte: Instance exists (0 or 1). If 0, the rest of this data is skipped.
+    +0x0001     260 chars: Path to DLL
+    +0x0105     dword: VST unique ID
+    +0x0109     dword: X position
+    +0x010D     dword: Y position
+    +0x0111     byte: Mute (0 or 1)
+    +0x0112     byte: Bypass (0 or 1)
+    +0x0113     32 chars: Instance name
+    +0x0133     Output table (all audio and midi output pins).
+        +0x0000     dword: Num wires from output
+        +0x0004     Wire table. 8 bytes per wire.
+            +0x0000     word: Input instance # (256 for master output)
+            +0x0002     word: Input pin # (separate indices for audio and midi)
+            +0x0004     float: Gain (0.0 to 1.0)
+    +0x????     VST data, unknown format/length? often (always?) begins with 4-8 zero bytes
+
+0xXXXXXXXX  Output table of Master Input. Same format as VSTs. Always 32 outputs.
+0xXXXXXXXX  VST routing properties...
+    +0x0000     dword: Master Input X position
+    +0x0004     dword: Master Input Y position
+    +0x0008     dword: Master Output X position
+    +0x000C     dword: Master Output Y position
+    +0x0010     dword: Scroll X
+    +0x0014     dword: Scroll Y
+EOF
+
+
+== Not saved in ADX files ==
+
+Program state:
+- Quantize setting
+- Channel setting
+- Octave setting
+- MIDI mask
+- Function key toggles
+- Block selection
+- Cursor column (cursor time is saved per pattern)
+- Selected instance
+
+Global settings:
+- Master input/output pin selection
