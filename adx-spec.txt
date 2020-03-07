@@ -61,7 +61,7 @@ Little endian
             +0x0000     word: Input instance # (256 for master output)
             +0x0002     word: Input pin # (separate indices for audio and midi)
             +0x0004     float: Gain (0.0 to 1.0)
-    +0x????     VST data, unknown format/length? often (always?) begins with 4-8 zero bytes
+    +0xXXXX     VST data, unknown format/length? often (always?) begins with 4-8 zero bytes
 
 0xXXXXXXXX  Output table of Master Input. Same format as VSTs. Always 32 outputs.
 0xXXXXXXXX  VST routing properties...
