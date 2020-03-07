@@ -63,6 +63,8 @@ Little endian
             +0x0004     float: Gain (0.0 to 1.0)
     +0xXXXX     dword: Program number
     +0xXXXX     VST data, unknown format/length?
+    +0xXXXX     Parameter table. 1 byte per parameter.
+        +0x0000     byte: Assigned MIDI controller. 0xFF for no controller.
 
 0xXXXXXXXX  Output table of Master Input. Same format as VSTs. Always 32 outputs.
 0xXXXXXXXX  VST routing properties...
