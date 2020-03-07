@@ -25,14 +25,14 @@ Little endian
     +0x2430     dword: Cursor time
     +0x2434     dword: Zoom
     +0x2438     dword: Pre-release
-    +0x243C     dword: Mode (Event/Pattern)
+    +0x243C     dword: Mode. 0 = Event, 1 = Pattern.
     +0x2440     32 bytes: Always 0?
     +0x2460     Marker table. 8 bytes x 256 markers = 0x0800 bytes.
         +0x0000     dword: Marker time. 0th marker is always 0.
         +0x0004     dword: Marker enabled (0 or 1). Deleted markers may still keep their time.
 
-0x002C6050  dword: Time signature beats (3, 4, or 5)
-0x002C6054  dword: Always 4? (time signature note value?)
+0x002C6050  dword: Time signature beats (UI allows 3, 4, or 5)
+0x002C6054  dword: Time signature note value (UI only allows 4)
 0x002C6058  dword: PPQN
 0x002C605C  dword: Always 0?
 
@@ -43,7 +43,7 @@ Little endian
     +0x0008     byte: Pattern num
     +0x0009     byte: Track num
     +0x000A     byte: Event type. 0 = note, 1 = Pat, 2 = Jmp, 3 = Mid, 4 = Aut, 5 = Tmp, 
-    +0x000B     byte: Resizable (0 or 1) ?
+    +0x000B     byte: Resizable (0 or 1)
     +0x000C     4 bytes: Event data
 
 0xXXXXXXXX  VST instance table. 256 instances, min 1 byte each.
