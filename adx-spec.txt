@@ -61,8 +61,9 @@ Little endian
             +0x0000     word: Input instance # (256 for master output)
             +0x0002     word: Input pin # (separate indices for audio and midi)
             +0x0004     float: Gain (0.0 to 1.0)
-    +0xXXXX     dword: Program number
-    +0xXXXX     VST data, unknown format/length?
+    +0xXXXX     dword: Program number (missing for some plugins)
+    +0xXXXX     VST data. Format varies between plugins. Some have no data at all.
+                Some plugins start with a dword indicating the length of the remaining data, but this isn't standard.
     +0xXXXX     Parameter table. 1 byte per parameter.
         +0x0000     byte: Assigned MIDI controller. 0xFF for no controller.
 
