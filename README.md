@@ -10,8 +10,8 @@ In the process of writing the script, I also reverse-engineered and documented t
 
 ## Requirements
 
-- Aodix 4
-- Python 3
+- [Aodix v4](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html)
+- [Python 3](https://www.python.org/downloads/)
 - The paths to your VST folders (in Aodix Configuration settings) **must contain at least 33 characters** when you save the `.adx` file, in order for it to be repaired correctly.
 
 ## Usage
