@@ -54,7 +54,7 @@ def main():
             if valid_vst and null_index:
                 # repair the corrupted name
                 vst_name = data[null_index+1:]
-                print("Repair:", vst_name)
+                print("Repair:", vst_name, " (move", null_index - index, "bytes)")
                 f.seek(-MAX_PATH + index + 1, 1)
                 f.write(vst_name)
                 f.write(bytes([0]))
@@ -64,6 +64,7 @@ def main():
                 print("OK:    ", data[index+1:])
                 ok_count += 1
 
+        print()
         print(ok_count, "VSTs OK")
         print(repair_count, "VSTs repaired")
 
