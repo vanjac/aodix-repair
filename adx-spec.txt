@@ -85,10 +85,12 @@ Program state:
 - Channel setting
 - Octave setting
 - MIDI mask
-- Function key toggles
+- Velocity setting
+- Function key toggles (Rec, Auto, Cycle, Live, Stop-Wrap, Step, Over, View)
+- Selected pattern
 - Block selection
 - Cursor column (cursor time is saved per pattern)
 - Selected instance
 
-Global settings:
+Global configuration:
 - Master input/output pin selection
