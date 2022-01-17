@@ -18,7 +18,8 @@ Project struct fields
 +0x00080984     Live
 
 +0x00081448     Project name (32 chars)
-    Starting with the project name, the Project struct continues identically to the ADX file format, up through the PPQN and 4 zero bytes. (see adx-spec.txt)
+    Starting with the project name, the Project struct continues identically to
+    the ADX file format, up through the PPQN and 4 zero bytes. (see adx-spec.txt)
     Eg. the Pattern table starts at +0x00081490, with the same structure etc.
 
 +0x003474A0     VST instance table (0x8154 bytes x 256 instances)
@@ -50,11 +51,9 @@ Project struct fields
 
 +0x0179D8C4     Routing view toggle
 
-+0x0179D8C8     Quantize setting
-    (stored as index into menu, *including separators!*)
-
++0x0179D8C8     Quantize setting (stored as index into menu, *including separators!*)
 +0x0179D8CC     Channel setting
-+0x0179D8D0     Octave setting
++0x0179D8D0     Octave setting (as MIDI note number)
 +0x0179D8D4     Velocity setting
 +0x0179D8D8     MIDI mask
 
@@ -63,7 +62,7 @@ Project struct fields
 +0x0179D8E8     Sequencer scroll X (by track)
 +0x0179D8EC     Cursor column within track
 
-+0x0179D8F0     Mouse drag operation
++0x0179D8F0     Mouse hold/drag operation
     0x00        None
     0x01-0x03   Cycle, Live, Stop-Wrap
     0x04        Tempo
