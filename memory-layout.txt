@@ -1,0 +1,145 @@
+Most program state is stored in the "Project" structure, which is allocated at startup. Most arrays have a fixed size.
+A pointer to the Project struct is stored at 0x0043C348, aka Aodix.exe+3C348
+
+Project struct fields
+=====================
+
++0x00080508     Master Input X
++0x0008050C     Master Input Y
++0x00080510     Master Output X
++0x00080514     Master Output Y
+
++0x0008066C     Playback flags
+    0x02    Playing
+    0x04    Cycle
+    0x08    Rec
+    0x40    Auto
++0x00080980     Stop-wrap
++0x00080984     Live
+
++0x00081448     Project name (32 chars)
+    Starting with the project name, the Project struct continues identically to the ADX file format, up through the PPQN and 4 zero bytes. (see adx-spec.txt)
+    Eg. the Pattern table starts at +0x00081490, with the same structure etc.
+
++0x003474A0     VST instance table (0x8154 bytes x 256 instances)
+    (different from ADX format)
+    +0x001C     Instance name (32 chars)
+    +0x003C     Path (260 chars, can be corrupted!)
+    +0x8144     X position
+    +0x8148     Y position
+    +0x814C     Mute
+    +0x814D     Bypass
+
++0x00B5C8A0     Table of all discovered VST plugin paths (260 bytes x 1024 entries)
++0x00B9D8A0     Num discovered VSTs
++0x00B9D8A4     ?
+
++0x00B9D8A8     Events table (16 bytes x 262144 events)
+    Same structure as ADX format, similarly unsorted
++0x00F9D8A8     Clipboard events table (16 bytes x 262144 events)
+    Unsorted, in their original locations
++0x0139D8A8     Undo events table (16 bytes x 262144 events)
+
++0x0179D8A8     Num events
++0x0179D8AC     Num clipboard events
++0x0179D8B0     Copy from time
++0x0179D8B4     Copy from track
++0x0179D8B8     Clipboard time length
++0x0179D8BC     Clipboard num tracks
++0x0179D8C0     Num undo events
+
++0x0179D8C4     Routing view toggle
+
++0x0179D8C8     Quantize setting
+    (stored as index into menu, *including separators!*)
+
++0x0179D8CC     Channel setting
++0x0179D8D0     Octave setting
++0x0179D8D4     Velocity setting
++0x0179D8D8     MIDI mask
+
++0x0179D8E0     Selected pattern #
++0x0179D8E4     Cursor track
++0x0179D8E8     Sequencer scroll X (by track)
++0x0179D8EC     Cursor column within track
+
++0x0179D8F0     Mouse drag operation
+    0x00        None
+    0x01-0x03   Cycle, Live, Stop-Wrap
+    0x04        Tempo
+    0x05        ?
+    0x06        Move Stop marker
+    0x07-0x0A   Play, Stop, Rec, Auto
+    0x0B-0x0D   Step, Over, View
+    0x0E-0x11   Zoom, Mode, Velocity, Pre-release
+    0x12-0x13   Instance prev, next
+    0x14-0x15   Program prev, next
+    0x16        Scroll instances
+    0x17        Scroll parameters
+    0x18        Adjust parameter
+    0x19        Draw MIDI wire
+    0x1A-0x1B   Pattern prev, next
+    0x1C        Move Start marker
+    0x1D        Move End marker
+    0x1E        Move other marker
+    0x1F        Scroll sequencer
+    0x20        Move event
+    0x21        Resize event (incl. piano roll)
+    0x22        Box select
+    0x23        Move instance
+    0x24        Draw audio wire
+    0x25        Move master input
+    0x26        Move master output
+    0x27        Scroll routing view
+    0x28        Move event in piano roll
+    0x29        Box select in piano roll
+    0x2A-0x2B   ?
+    0x2C        Adjust wire gain
+
++0x0179D8F4     Selected instance #
++0x0179D8FC     Selected parameter #
+
++0x0179D904     Mouse X in window
++0x0179D908     Mouse Y in window
+
+While drawing output wire (mouse op 0x19 or 0x24):
+    +0x0179D90C     From instance # (master input = 258)
+    +0x0179D910     From pin # (separate indices for audio and midi)
+
++0x0179D914     Over toggle
++0x0179D918     Step toggle
+
+Block select:
+    +0x0179D91C     Start time
+    +0x0179D920     Start track
+    +0x0179D924     End time
+    +0x0179D928     End track (exclusive)
+
++0x0179D92C     Moving event # (mouse op 0x20 or 0x28)
++0x0179D930     Moving marker # (mouse op 0x1E)
++0x0179D934     Time offset of moving object from mouse
+
++0x0179D940     Editing text field
+    0x0000      None
+    0x0001      Program name
+    0x0002+i    Track i name
+    0x0200      Pattern name
+    0x0201      Project name
+    0x0202      Comment
+    0x0203      Instance name
+
++0x0179D944     Routing scroll X
++0x0179D948     Routing scroll Y
+
++0x0179D958     Adjusting wire ptr (mouse op 0x2C)
+    Pointer to wire struct, with same layout as ADX format
+    Wires are stored somewhere outside the Project struct, currently unclear
+    +0x0179D95C and +0x0179D960 are also used somehow in this operation
+
++0x0179D964     Adjusted parameter value, 0.0 to 1.0 (mouse op 0x18)
+
+
+
+TODO:
+    How are wires stored and associated with instances?
+    MIDI controller parameter assignments
