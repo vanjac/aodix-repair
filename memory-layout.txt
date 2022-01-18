@@ -1,4 +1,5 @@
-Most program state is stored in the "Project" structure, which is allocated at startup. Most arrays have a fixed size.
+Most program state is stored in the "Project" structure, which is allocated at startup.
+Project struct is 0x0179DA98 bytes (~23 MiB). Most arrays have a fixed size.
 A pointer to the Project struct is stored at 0x0043C348, aka Aodix.exe+3C348
 
 Project struct fields
@@ -24,6 +25,19 @@ Project struct fields
 
 +0x003474A0     VST instance table (0x8154 bytes x 256 instances)
     (different from ADX format)
+    +0x0008     Pointer to input buffer array (heap)
+        For each audio input pin:
+            Pointer to audio buffer (heap; fixed? at 2048 samples = 8192 bytes)
+    +0x000C     Pointer to output buffer array (heap)
+        For each audio output pin:
+            Pointer to audio buffer (heap)
+    +0x0010     Pointer to output wire array (heap)
+        For each audio output pin:
+            +0x00   Pointer to wire array (heap)
+                Same layout as ADX 
+            +0x04   Num wires
+    +0x0014     Pointer to MIDI output wire array (heap)
+    +0x0018     Num MIDI outputs
     +0x001C     Instance name (32 chars)
     +0x003C     Path (260 chars, can be corrupted!)
     +0x8144     X position
@@ -131,8 +145,7 @@ Block select:
 +0x0179D948     Routing scroll Y
 
 +0x0179D958     Adjusting wire ptr (mouse op 0x2C)
-    Pointer to wire struct, with same layout as ADX format
-    Wires are stored somewhere outside the Project struct, currently unclear
+    Pointer to wire struct (see VST table)
     +0x0179D95C and +0x0179D960 are also used somehow in this operation
 
 +0x0179D964     Adjusted parameter value, 0.0 to 1.0 (mouse op 0x18)
@@ -141,5 +154,4 @@ Block select:
 
 TODO:
     Playback time
-    How are wires stored and associated with instances?
     MIDI controller parameter assignments
