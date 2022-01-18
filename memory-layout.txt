@@ -140,6 +140,6 @@ Block select:
 
 
 TODO:
-    Playback time, pattern #
+    Playback time
     How are wires stored and associated with instances?
     MIDI controller parameter assignments
