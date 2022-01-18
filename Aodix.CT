@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Fix VST path bug"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Aodix.exe
+  Version: 
+  Date   : 2022-01-17
+  Author : j
+
+  Fixes a bug that causes corrupted VST paths
+}
+
+define(address,"Aodix.exe"+BAFD)
+define(bytes,52 57 52 52 6A 2D 50 FF 50 04 83 C4 18)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  push edi // save actual location of instance name for later
+
+  sub esp,44 // 68 byte output buffer
+  mov edi,esp
+
+  // now the original function call
+  push edx
+  push edi
+  push edx
+  push edx
+  push 2D
+  push eax
+  call dword ptr [eax+04]
+  add esp,18 // 24
+
+  mov edi,[esp+44]
+  mov eax,8 // 8 x 4 bytes
+
+copyname:
+  mov edx,[esp]
+  mov [edi],edx
+  add esp,4
+  add edi,4
+  dec eax
+  jnz copyname
+
+  mov byte [edi-1],0 // null terminator
+  sub edi,20 // restore
+
+  add esp,28 // pop remaining 36 bytes + edi
+  jmp return
+
+code:
+
+address:
+  jmp newmem
+  nop
+  nop // push eax
+  nop // call dword ptr [eax+04]
+  nop
+  nop
+  nop // add esp,18
+  nop
+  nop
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // push edx
+  // push edi
+  // push edx
+  // push edx
+  // push 2D
+  // push eax
+  // call dword ptr [eax+04]
+  // add esp,18
+
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Aodix.exe+BAFD
+
+Aodix.exe+BADF: 89 47 04     - mov [edi+04],eax
+Aodix.exe+BAE2: 89 47 08     - mov [edi+08],eax
+Aodix.exe+BAE5: 89 47 0C     - mov [edi+0C],eax
+Aodix.exe+BAE8: 89 47 10     - mov [edi+10],eax
+Aodix.exe+BAEB: 89 47 14     - mov [edi+14],eax
+Aodix.exe+BAEE: 89 47 18     - mov [edi+18],eax
+Aodix.exe+BAF1: 89 47 1C     - mov [edi+1C],eax
+Aodix.exe+BAF4: 8B 44 24 34  - mov eax,[esp+34]
+Aodix.exe+BAF8: 8B 40 04     - mov eax,[eax+04]
+Aodix.exe+BAFB: 33 D2        - xor edx,edx
+// ---------- INJECTING HERE ----------
+Aodix.exe+BAFD: 52           - push edx
+// ---------- DONE INJECTING  ----------
+Aodix.exe+BAFE: 57           - push edi
+Aodix.exe+BAFF: 52           - push edx
+Aodix.exe+BB00: 52           - push edx
+Aodix.exe+BB01: 6A 2D        - push 2D
+Aodix.exe+BB03: 50           - push eax
+Aodix.exe+BB04: FF 50 04     - call dword ptr [eax+04]
+Aodix.exe+BB07: 83 C4 18     - add esp,18
+Aodix.exe+BB0A: 8B 44 24 34  - mov eax,[esp+34]
+Aodix.exe+BB0E: 0F BE 50 1C  - movsx edx,byte ptr [eax+1C]
+Aodix.exe+BB12: 85 D2        - test edx,edx
+}
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
