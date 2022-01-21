@@ -11,7 +11,7 @@ In the process of creating these patches, I reverse-engineered and documented th
 ## Requirements
 
 - [Aodix v4](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html)
-- [Cheat Engine 32-bit](https://www.cheatengine.org/)
+- [Cheat Engine](https://www.cheatengine.org/)
 - For repairing old files: [Python 3](https://www.python.org/downloads/)
 
 ## Patch instructions
