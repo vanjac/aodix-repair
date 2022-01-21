@@ -117,6 +117,86 @@ Aodix.exe+BB12: 85 D2        - test edx,edx
 }
 </AssemblerScript>
     </CheatEntry>
+    <CheatEntry>
+      <ID>1</ID>
+      <Description>"Fix Bounce panel MIDI crash"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Aodix.exe
+  Version: 
+  Date   : 2022-01-21
+  Author : j
+
+  Fixes a crash triggered by MIDI input while the Bounce panel is open
+}
+
+define(address,"Aodix.exe"+C363)
+define(bytes,E8 98 7A FF FF)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  push eax
+  mov eax [Aodix.exe+3D6B4] // ASIO handle
+  cmp eax, 0
+  je skip
+  // calls ntdll.RtlEnterCriticalSection
+  // crashes if the critical section is not initialized
+  // https://devblogs.microsoft.com/oldnewthing/20170922-00/?p=97065
+  call Aodix.exe+3E00
+skip:
+  pop eax
+  jmp return
+
+address:
+  jmp newmem
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // call Aodix.exe+3E00
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Aodix.exe+C363
+
+Aodix.exe+C33E: 89 44 24 18           - mov [esp+18],eax
+Aodix.exe+C342: C1 F9 04              - sar ecx,04
+Aodix.exe+C345: 83 C1 F8              - add ecx,-08
+Aodix.exe+C348: D3 E2                 - shl edx,cl
+Aodix.exe+C34A: 85 96 D8 D8 79 01     - test [esi+0179D8D8],edx
+Aodix.exe+C350: 0F 84 70 01 00 00     - je Aodix.exe+C4C6
+Aodix.exe+C356: 8B 84 37 A4 74 34 00  - mov eax,[edi+esi+003474A4]
+Aodix.exe+C35D: 85 C0                 - test eax,eax
+Aodix.exe+C35F: 74 36                 - je Aodix.exe+C397
+Aodix.exe+C361: 8B CE                 - mov ecx,esi
+// ---------- INJECTING HERE ----------
+Aodix.exe+C363: E8 98 7A FF FF        - call Aodix.exe+3E00
+// ---------- DONE INJECTING  ----------
+Aodix.exe+C368: 33 ED                 - xor ebp,ebp
+Aodix.exe+C36A: 55                    - push ebp
+Aodix.exe+C36B: 55                    - push ebp
+Aodix.exe+C36C: 8B CE                 - mov ecx,esi
+Aodix.exe+C36E: 0F B6 44 24 54        - movzx eax,byte ptr [esp+54]
+Aodix.exe+C373: 50                    - push eax
+Aodix.exe+C374: 0F B6 54 24 54        - movzx edx,byte ptr [esp+54]
+Aodix.exe+C379: 52                    - push edx
+Aodix.exe+C37A: 0F B6 44 24 54        - movzx eax,byte ptr [esp+54]
+Aodix.exe+C37F: 50                    - push eax
+}
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
