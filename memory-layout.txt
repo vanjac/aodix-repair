@@ -80,7 +80,7 @@ Project struct fields
     0x00        None
     0x01-0x03   Cycle, Live, Stop-Wrap
     0x04        Tempo
-    0x05        ?
+    0x05        Resize piano roll divider
     0x06        Move Stop marker
     0x07-0x0A   Play, Stop, Rec, Auto
     0x0B-0x0D   Step, Over, View
