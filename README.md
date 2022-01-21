@@ -2,9 +2,9 @@
 
 [Aodix](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html) was a music [sequencer](https://en.wikipedia.org/wiki/Music_sequencer) / [tracker](https://en.wikipedia.org/wiki/Music_tracker) program for Windows developed by Arguru Software. Unfortunately [the developer](https://en.wikipedia.org/wiki/Juan_Antonio_Arguelles_Rius) died in 2007, making v4.2.0.1 the last version of Aodix forever.
 
-Aodix still works well on modern systems, and has a unique combination of ideas that I haven't seen in any other music software. But there are also a few bugs that will never be fixed. The most painful one causes certain VSTs to be corrupted when the file is saved. This results in the error message `Unable to Locate Plugin`, the loss of VST instrument settings, and possibly a crash.
+Aodix still works well on modern systems, and has a unique combination of ideas that I haven't seen in other music software. But there are also a few bugs that will never be fixed. The most painful one causes certain VSTs to be corrupted when the file is saved. This results in the error message `Unable to Locate Plugin`, the loss of VST instrument settings, and possibly a crash.
 
-I have created a [Cheat Engine](https://www.cheatengine.org/) table which patches this bug through code injection. I have also written a Python script which can automatically repair old corrupted project files under certain circumstances.
+I have created a [Cheat Engine](https://www.cheatengine.org/) table which patches this bug and others through code injection. I have also written a Python script which can automatically repair old corrupted project files under certain circumstances.
 
 In the process of creating these patches, I reverse-engineered and documented the `.adx` file format, as well as the internal memory layout of the program. See `adx-spec.txt` and `memory-layout.txt`.
 
@@ -18,7 +18,12 @@ In the process of creating these patches, I reverse-engineered and documented th
 
 ## Patch instructions
 
-Attach Cheat Engine to the Aodix process, load the `Aodix.CT` cheat table, and enable the "Fix VST path bug" cheat. This should be done before loading any VSTs. If it works correctly, you should now be able to save and load project files without errors.
+Attach Cheat Engine to the Aodix process, load the `Aodix.CT` cheat table, and check the box next to "Bug fixes" to enable all cheats. This should be done before loading any VSTs.
+
+### List of patches
+
+- **Fix VST path bug:** Fixes a bug that causes some VSTs to save with corrupted paths, preventing them from being loaded again.
+- **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
 
 ## File repair instructions
 
