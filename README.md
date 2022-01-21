@@ -12,9 +12,7 @@ In the process of creating these patches, I reverse-engineered and documented th
 
 - [Aodix v4](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html)
 - [Cheat Engine 32-bit](https://www.cheatengine.org/)
-- For repairing old files:
-    - [Python 3](https://www.python.org/downloads/)
-    - The paths to your VST folders (in Aodix Configuration settings) **must have contained at least 33 characters** when you saved the `.adx` file, in order for it to be repaired automatically.
+- For repairing old files: [Python 3](https://www.python.org/downloads/)
 
 ## Patch instructions
 
@@ -30,3 +28,5 @@ Attach Cheat Engine to the Aodix process, load the `Aodix.CT` cheat table, and c
 Run the python script on the `.adx` file to repair: `python aodix-repair.py file.adx`
 
 It will print a list of all VST paths, and whether it had to repair each of them.
+
+**Note:** The script can only work automatically if the paths to your VST folders (in Aodix Configuration settings) contained **at least 33 characters** when the file was saved. For example: `C:\Program Files (x86)\VSTPlugins` is 33 characters long, but `C:\VST` is only 6 characters and can't be repaired by the script.
