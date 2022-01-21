@@ -16,7 +16,11 @@ In the process of creating these patches, I reverse-engineered and documented th
 
 ## Patch instructions
 
-Attach Cheat Engine to the Aodix process, load the `Aodix.CT` cheat table, and check the box next to "Bug fixes" to enable all cheats. This should be done before loading any VSTs.
+- Start Aodix
+- Start Cheat Engine (32-bit)
+- Click the flashing button in Cheat Engine, select the Aodix process, and choose Open.
+- Load the `Aodix.CT` cheat table found in this repository. After you do this once, Cheat Engine should remember and prompt you to load it the next time.
+- Check the box next to "Bug fixes" to enable all bug fix patches. This should be done before loading any VSTs.
 
 ### List of patches
 
