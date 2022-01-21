@@ -26,6 +26,8 @@ label(code)
 label(return)
 
 newmem:
+
+code:
   push edi // save actual location of instance name for later
 
   sub esp,44 // 68 byte output buffer
@@ -57,8 +59,6 @@ copyname:
 
   add esp,28 // pop remaining 36 bytes + edi
   jmp return
-
-code:
 
 address:
   jmp newmem
