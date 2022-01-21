@@ -2,11 +2,18 @@
 <CheatTable CheatEngineTableVersion="38">
   <CheatEntries>
     <CheatEntry>
-      <ID>0</ID>
-      <Description>"Fix VST path bug"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{ Game   : Aodix.exe
+      <ID>2</ID>
+      <Description>"Bug fixes"</Description>
+      <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>0</ID>
+          <Description>"Fix VST path bug"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Aodix.exe
   Version: 
   Date   : 2022-01-17
   Author : j
@@ -116,13 +123,13 @@ Aodix.exe+BB0E: 0F BE 50 1C  - movsx edx,byte ptr [eax+1C]
 Aodix.exe+BB12: 85 D2        - test edx,edx
 }
 </AssemblerScript>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>1</ID>
-      <Description>"Fix Bounce panel MIDI crash"</Description>
-      <LastState/>
-      <VariableType>Auto Assembler Script</VariableType>
-      <AssemblerScript>{ Game   : Aodix.exe
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Fix Bounce panel MIDI crash"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Aodix.exe
   Version: 
   Date   : 2022-01-21
   Author : j
@@ -196,6 +203,8 @@ Aodix.exe+C37A: 0F B6 44 24 54        - movzx eax,byte ptr [esp+54]
 Aodix.exe+C37F: 50                    - push eax
 }
 </AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
