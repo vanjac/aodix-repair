@@ -152,8 +152,8 @@ newmem:
 
 code:
   push eax
-  mov eax [Aodix.exe+3D6B4] // ASIO handle
-  cmp eax, 0
+  mov eax,[Aodix.exe+3D6B4] // ASIO handle
+  cmp eax,0
   je skip
   // calls ntdll.RtlEnterCriticalSection
   // crashes if the critical section is not initialized
