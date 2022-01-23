@@ -2,18 +2,25 @@
 <CheatTable CheatEngineTableVersion="38">
   <CheatEntries>
     <CheatEntry>
-      <ID>2</ID>
-      <Description>"Bug fixes"</Description>
+      <ID>8</ID>
+      <Description>"All patches"</Description>
       <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
-          <ID>0</ID>
-          <Description>"Fix VST path bug"</Description>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{ Game   : Aodix.exe
+          <ID>2</ID>
+          <Description>"Bug fixes"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>0</ID>
+              <Description>"Fix VST path bug"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Aodix.exe
   Version: 
   Date   : 2022-01-17
   Author : j
@@ -123,13 +130,13 @@ Aodix.exe+BB0E: 0F BE 50 1C  - movsx edx,byte ptr [eax+1C]
 Aodix.exe+BB12: 85 D2        - test edx,edx
 }
 </AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>1</ID>
-          <Description>"Fix Bounce panel MIDI crash"</Description>
-          <LastState/>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{ Game   : Aodix.exe
+            </CheatEntry>
+            <CheatEntry>
+              <ID>1</ID>
+              <Description>"Fix Bounce panel MIDI crash"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Aodix.exe
   Version: 
   Date   : 2022-01-21
   Author : j
@@ -203,6 +210,73 @@ Aodix.exe+C37A: 0F B6 44 24 54        - movzx eax,byte ptr [esp+54]
 Aodix.exe+C37F: 50                    - push eax
 }
 </AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Features"</Description>
+          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"Allow pre-release=0"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Aodix.exe
+  Version: 
+  Date   : 2022-01-23
+  Author : j
+
+  Allows setting the pre-release to 0
+}
+
+define(address,"Aodix.exe"+12790)
+define(bytes,6A 01)
+
+[ENABLE]
+assert(address,bytes)
+
+address:
+  push 00
+
+[DISABLE]
+address:
+  db bytes
+  // push 01
+
+{
+// ORIGINAL CODE - INJECTION POINT: Aodix.exe+12790
+
+Aodix.exe+12759: E8 56 AB FF FF                 - call Aodix.exe+D2B4
+Aodix.exe+1275E: 83 C4 0C                       - add esp,0C
+Aodix.exe+12761: C7 83 78 DA 79 01 01 00 00 00  - mov [ebx+0179DA78],00000001
+Aodix.exe+1276B: 89 83 F8 D8 79 01              - mov [ebx+0179D8F8],eax
+Aodix.exe+12771: 8B 83 F0 D8 79 01              - mov eax,[ebx+0179D8F0]
+Aodix.exe+12777: E9 8D F4 FF FF                 - jmp Aodix.exe+11C09
+Aodix.exe+1277C: 8B 44 24 58                    - mov eax,[esp+58]
+Aodix.exe+12780: 8B 94 18 C8 38 08 00           - mov edx,[eax+ebx+000838C8]
+Aodix.exe+12787: 2B 54 24 3C                    - sub edx,[esp+3C]
+Aodix.exe+1278B: 68 FF FF FF 7F                 - push 7FFFFFFF
+// ---------- INJECTING HERE ----------
+Aodix.exe+12790: 6A 01                          - push 01
+// ---------- DONE INJECTING  ----------
+Aodix.exe+12792: 52                             - push edx
+Aodix.exe+12793: E8 1C AB FF FF                 - call Aodix.exe+D2B4
+Aodix.exe+12798: 83 C4 0C                       - add esp,0C
+Aodix.exe+1279B: 8B 54 24 58                    - mov edx,[esp+58]
+Aodix.exe+1279F: 89 84 1A C8 38 08 00           - mov [edx+ebx+000838C8],eax
+Aodix.exe+127A6: 8B 83 F0 D8 79 01              - mov eax,[ebx+0179D8F0]
+Aodix.exe+127AC: C7 83 78 DA 79 01 01 00 00 00  - mov [ebx+0179DA78],00000001
+Aodix.exe+127B6: E9 45 F4 FF FF                 - jmp Aodix.exe+11C00
+Aodix.exe+127BB: 8B 83 D4 D8 79 01              - mov eax,[ebx+0179D8D4]
+Aodix.exe+127C1: 2B 44 24 3C                    - sub eax,[esp+3C]
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
@@ -216,7 +290,7 @@ Aodix.exe+C37F: 50                    - push eax
         <CheatEntry>
           <ID>3</ID>
           <Description>"Project struct pointer"</Description>
-          <LastState Value="0267A020" RealAddress="0043C348"/>
+          <LastState Value="" RealAddress="0043C348"/>
           <ShowAsHex>1</ShowAsHex>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>4 Bytes</VariableType>

@@ -20,12 +20,15 @@ In the process of creating these patches, I reverse-engineered and documented th
 - Start Cheat Engine (32-bit)
 - Click the flashing button in Cheat Engine, select the Aodix process, and choose Open.
 - Load the `Aodix.CT` cheat table found in this repository. After you do this once, Cheat Engine should remember and prompt you to load it the next time.
-- Check the box next to "Bug fixes" to enable all bug fix patches. This should be done before loading any VSTs.
+- Check the box next to "All patches" to enable all patches at once, or you can choose individual patches/categories. This should be done before loading any VSTs.
 
 ### List of patches
 
-- **Fix VST path bug:** Fixes a bug that causes some VSTs to save with corrupted paths, preventing them from being loaded again.
-- **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
+- Bug fixes
+    - **Fix VST path bug:** Fixes a bug that causes some VSTs to save with corrupted paths, preventing them from being loaded again.
+    - **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
+- Features
+    - **Allow pre-release=0:** Allows setting the pre-release to 0
 
 ## File repair instructions
 
