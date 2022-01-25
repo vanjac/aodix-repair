@@ -276,6 +276,182 @@ Aodix.exe+127C1: 2B 44 24 3C                    - sub eax,[esp+3C]
 }
 </AssemblerScript>
             </CheatEntry>
+            <CheatEntry>
+              <ID>5</ID>
+              <Description>"Set length shortcut"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Aodix.exe
+  Version: 
+  Date   : 2022-01-22
+  Author : j
+
+  Adds a shortcut '`' for setting the length of previous events to the cursor.
+}
+
+define(address,"Aodix.exe"+13AF6)
+define(bytes,83 FF 09 0F 84 55 13 00 00)
+
+[ENABLE]
+
+assert(address,bytes)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  // eax: should be set to cursor column?
+  // ebx: safe to use
+  // ecx: safe to use
+  // edx: safe to use
+  // esi: selected pattern offset in table
+  // edi: key code
+  // ebp: project struct ptr
+
+  // https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+  cmp edi,C0 // `~ key
+  je note_off_shortcut
+
+  // original code to check for TAB
+  cmp edi,09
+  je Aodix.exe+14E54
+  jmp return
+
+
+note_off_shortcut:
+  push edi
+
+  // store undo
+  mov ecx,ebp
+  call Aodix.exe+51F4
+
+  mov ecx,[ebp+esi+81490+2430]    // cursor time
+  imul ebx,[ebp+179D8A8],10 // last event offset
+
+  xor edi,edi // last end time before cursor, or -1 if event cut
+  xor eax,eax // current event offset
+search_events_cut:
+  mov dl,[ebp+eax+B9D8A8+B] // event is resizable
+  cmp dl,0
+  je search_events_cut_next
+  mov dl,[ebp+eax+B9D8A8+8] // event pattern #
+  cmp dl,[ebp+179D8E0] // selected pattern #
+  jne search_events_cut_next
+  mov dl,[ebp+eax+B9D8A8+9] // event track #
+  cmp dl,[ebp+179D8E4] // selected track #
+  jne search_events_cut_next
+  mov edx,[ebp+eax+B9D8A8] // event time
+  cmp edx,ecx
+  jge search_events_cut_next
+
+  add edx,[ebp+eax+B9D8A8+4] // event length
+  cmp edx,ecx
+  jg cut_event
+  // events ending at cursor are excluded from max end time
+  je search_events_cut_next
+
+  // find max end time
+  cmp edx,edi
+  jbe search_events_cut_next
+  mov edi,edx
+  jmp search_events_cut_next
+
+cut_event:
+  sub edx,ecx
+  sub [ebp+eax+B9D8A8+4],edx
+  mov edi,FFFFFFFF
+
+search_events_cut_next:
+  add eax,10 // 16 bytes per event
+  cmp eax,ebx
+  jb search_events_cut
+// end loop search_events_cut
+
+  cmp edi,FFFFFFFF
+  je note_off_shortcut_exit // a note was cut
+
+  // now search for events with end time matching edi
+  // TODO a lot of copy/pasted code here
+  xor eax,eax
+search_events_extend:
+  mov dl,[ebp+eax+B9D8A8+B] // event is resizable
+  test dl,dl
+  jz search_events_extend_next
+  mov dl,[ebp+eax+B9D8A8+8] // event pattern #
+  cmp dl,[ebp+179D8E0] // selected pattern #
+  jne search_events_extend_next
+  mov dl,[ebp+eax+B9D8A8+9] // event track #
+  cmp dl,[ebp+179D8E4] // selected track #
+  jne search_events_extend_next
+  mov edx,[ebp+eax+B9D8A8] // event time
+  add edx,[ebp+eax+B9D8A8+4] // event length
+  cmp edx,edi
+  jne search_events_extend_next
+
+  // extend event
+  sub edx,ecx
+  sub [ebp+eax+B9D8A8+4],edx
+
+search_events_extend_next:
+  add eax,10
+  cmp eax,ebx
+  jb search_events_extend
+// end loop search_events_extend loop
+
+
+note_off_shortcut_exit:
+  pop edi
+  mov [ebp+179DA78],1 // refresh
+  mov eax,[ebp+179D8EC] // get cursor column within track
+  jmp Aodix.exe+13BD4 // shortcut exit
+
+
+address:
+  jmp newmem
+  nop 4
+return:
+
+[DISABLE]
+
+address:
+  db bytes
+  // cmp edi,09
+  // je Aodix.exe+14E54
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Aodix.exe+13AF6
+
+Aodix.exe+13AD0: 6A 10              - push 10
+Aodix.exe+13AD2: FF 15 9C D1 42 00  - call dword ptr [Aodix.exe+2D19C]
+Aodix.exe+13AD8: 0F BF C0           - movsx eax,ax
+Aodix.exe+13ADB: 85 C0              - test eax,eax
+Aodix.exe+13ADD: 0F 8C 52 05 00 00  - jl Aodix.exe+14035
+Aodix.exe+13AE3: 6A 11              - push 11
+Aodix.exe+13AE5: FF 15 9C D1 42 00  - call dword ptr [Aodix.exe+2D19C]
+Aodix.exe+13AEB: 0F BF C0           - movsx eax,ax
+Aodix.exe+13AEE: 85 C0              - test eax,eax
+Aodix.exe+13AF0: 0F 8C 3F 05 00 00  - jl Aodix.exe+14035
+// ---------- INJECTING HERE ----------
+Aodix.exe+13AF6: 83 FF 09           - cmp edi,09
+// ---------- DONE INJECTING  ----------
+Aodix.exe+13AF9: 0F 84 55 13 00 00  - je Aodix.exe+14E54
+Aodix.exe+13AFF: 83 FF 6B           - cmp edi,6B
+Aodix.exe+13B02: 0F 84 18 13 00 00  - je Aodix.exe+14E20
+Aodix.exe+13B08: 83 FF 6D           - cmp edi,6D
+Aodix.exe+13B0B: 0F 84 DB 12 00 00  - je Aodix.exe+14DEC
+Aodix.exe+13B11: 83 FF 25           - cmp edi,25
+Aodix.exe+13B14: 0F 84 8C 12 00 00  - je Aodix.exe+14DA6
+Aodix.exe+13B1A: 83 FF 27           - cmp edi,27
+Aodix.exe+13B1D: 0F 84 3B 12 00 00  - je Aodix.exe+14D5E
+Aodix.exe+13B23: 83 FF 26           - cmp edi,26
+}
+</AssemblerScript>
+            </CheatEntry>
           </CheatEntries>
         </CheatEntry>
       </CheatEntries>

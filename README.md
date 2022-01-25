@@ -29,6 +29,7 @@ In the process of creating these patches, I reverse-engineered and documented th
     - **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
 - Features
     - **Allow pre-release=0:** Allows setting the pre-release to 0
+    - **Set length shortcut:** Adds a shortcut (`` ` ``/`~` key) to set the length of events to end at the cursor. All events overlapping the cursor are cut. If none are overlapping, the last event(s) before the cursor are extended.
 
 ## File repair instructions
 
