@@ -25,6 +25,7 @@ Project struct fields
 
 +0x003474A0     VST instance table (0x8154 bytes x 256 instances)
     (different from ADX format)
+    +0x0004     Pointer to AEffect struct (see VST API)
     +0x0008     Pointer to input buffer array (heap)
         For each audio input pin:
             Pointer to audio buffer (heap; fixed? at 2048 samples = 8192 bytes)
