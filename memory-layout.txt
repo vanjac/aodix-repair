@@ -5,20 +5,24 @@ A pointer to the Project struct is stored at 0x0043C348, aka Aodix.exe+3C348
 Project struct fields
 =====================
 
++0x00080100     Playback sample position (copied to VstTimeInfo)
+
 +0x00080508     Master Input X
 +0x0008050C     Master Input Y
 +0x00080510     Master Output X
 +0x00080514     Master Output Y
 
 +0x00080618     VstTimeInfo (0x58 bytes; see VST SDK)
-    +0x54       flags
+    +0x54       Flags are used to store some playback state:
         0x02    Playing
         0x04    Cycle
         0x08    Rec
         0x40    Auto
-    
+
 +0x00080980     Stop-wrap
 +0x00080984     Live
+
++0x00080990     Sample rate (double, eg. 48000.00; copied to VstTimeInfo)
 
 +0x00081448     Project name (32 chars)
     Starting with the project name, the Project struct continues identically to
