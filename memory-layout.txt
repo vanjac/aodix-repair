@@ -10,11 +10,13 @@ Project struct fields
 +0x00080510     Master Output X
 +0x00080514     Master Output Y
 
-+0x0008066C     Playback flags
-    0x02    Playing
-    0x04    Cycle
-    0x08    Rec
-    0x40    Auto
++0x00080618     VstTimeInfo (0x58 bytes; see VST SDK)
+    +0x54       flags
+        0x02    Playing
+        0x04    Cycle
+        0x08    Rec
+        0x40    Auto
+    
 +0x00080980     Stop-wrap
 +0x00080984     Live
 
@@ -25,7 +27,7 @@ Project struct fields
 
 +0x003474A0     VST instance table (0x8154 bytes x 256 instances)
     (different from ADX format)
-    +0x0004     Pointer to AEffect struct (see VST API)
+    +0x0004     Pointer to AEffect struct (see VST SDK)
     +0x0008     Pointer to input buffer array (heap)
         For each audio input pin:
             Pointer to audio buffer (heap; fixed? at 2048 samples = 8192 bytes)
@@ -156,6 +158,5 @@ Block select:
 
 
 TODO:
-    Playback time
     MIDI controller parameter assignments
     Master Input wire table
