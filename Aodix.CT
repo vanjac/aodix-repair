@@ -30,16 +30,16 @@
 
 define(address,"Aodix.exe"+BAFD)
 define(bytes,52 57 52 52 6A 2D 50 FF 50 04 83 C4 18)
+define(cave,"Aodix.exe"+2BC00) // 0x4E bytes used
 
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000) // 78 bytes used
 
 label(code)
 label(return)
 
-newmem:
+cave:
 
 code:
   push edi // save actual location of instance name for later
@@ -75,7 +75,7 @@ copyname:
   jmp return
 
 address:
-  jmp newmem
+  jmp code
   nop
   nop // push eax
   nop // call dword ptr [eax+04]
@@ -99,8 +99,6 @@ address:
   // call dword ptr [eax+04]
   // add esp,18
 
-
-dealloc(newmem)
 
 {
 // ORIGINAL CODE - INJECTION POINT: Aodix.exe+BAFD
@@ -146,16 +144,16 @@ Aodix.exe+BB12: 85 D2        - test edx,edx
 
 define(address,"Aodix.exe"+C363)
 define(bytes,E8 98 7A FF FF)
+define(cave,"Aodix.exe"+2BC50) // 0x1A bytes used
 
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000) // 26 bytes used
 
 label(code)
 label(return)
 
-newmem:
+cave:
 
 code:
   push eax
@@ -171,7 +169,7 @@ skip:
   jmp return
 
 address:
-  jmp newmem
+  jmp code
 return:
 
 [DISABLE]
@@ -179,8 +177,6 @@ return:
 address:
   db bytes
   // call Aodix.exe+3E00
-
-dealloc(newmem)
 
 {
 // ORIGINAL CODE - INJECTION POINT: Aodix.exe+C363
@@ -235,16 +231,16 @@ Aodix.exe+C37F: 50                    - push eax
 
 define(address,"Aodix.exe"+13AF6)
 define(bytes,83 FF 09 0F 84 55 13 00 00)
+define(cave,"Aodix.exe"+2BC70) // 0x138 bytes used
 
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000) // 312 bytes used
 
 label(code)
 label(return)
 
-newmem:
+cave:
 
 code:
   // eax: should be set to cursor column?
@@ -354,7 +350,7 @@ note_off_shortcut_exit:
 
 
 address:
-  jmp newmem
+  jmp code
   nop 4
 return:
 
@@ -364,8 +360,6 @@ address:
   db bytes
   // cmp edi,09
   // je Aodix.exe+14E54
-
-dealloc(newmem)
 
 {
 // ORIGINAL CODE - INJECTION POINT: Aodix.exe+13AF6
