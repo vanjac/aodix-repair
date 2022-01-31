@@ -34,7 +34,7 @@ define(bytes,52 57 52 52 6A 2D 50 FF 50 04 83 C4 18)
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000)
+alloc(newmem,$1000) // 78 bytes used
 
 label(code)
 label(return)
@@ -150,7 +150,7 @@ define(bytes,E8 98 7A FF FF)
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000)
+alloc(newmem,$1000) // 26 bytes used
 
 label(code)
 label(return)
@@ -239,7 +239,7 @@ define(bytes,83 FF 09 0F 84 55 13 00 00)
 [ENABLE]
 
 assert(address,bytes)
-alloc(newmem,$1000)
+alloc(newmem,$1000) // 312 bytes used
 
 label(code)
 label(return)
