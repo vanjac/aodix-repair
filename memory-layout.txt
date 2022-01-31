@@ -161,6 +161,8 @@ Block select:
 
 
 
-TODO:
-    MIDI controller parameter assignments
-    Master Input wire table
+Code Caves
+==========
+
+0x0042BBFD (1027 bytes, at end of .text region)
+0x0042C068 (3992 bytes, at end of .text1 region)
