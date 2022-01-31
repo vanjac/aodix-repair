@@ -3,7 +3,7 @@
   <CheatEntries>
     <CheatEntry>
       <ID>8</ID>
-      <Description>"All patches"</Description>
+      <Description>"Recommended patches"</Description>
       <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
