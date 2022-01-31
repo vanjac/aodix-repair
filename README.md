@@ -38,3 +38,8 @@ Run the python script on the `.adx` file to repair: `python aodix-repair.py file
 It will print a list of all VST paths, and whether it had to repair each of them.
 
 **Note:** The script can only work automatically if the paths to your VST folders (in Aodix Configuration settings) contained **at least 33 characters** when the file was saved. For example: `C:\Program Files (x86)\VSTPlugins` is 33 characters long, but `C:\VST` is only 6 characters and can't be repaired by the script.
+
+## Other resources
+
+- [Archive of skins, older versions, and related software](http://www.oldschooldaw.com/forums/index.php/topic,7316.0.html)
+- [Aodix undocumented features](https://github.com/vanjac/aodix-repair/blob/master/undocumented.md)
