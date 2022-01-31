@@ -398,6 +398,50 @@ Aodix.exe+13B23: 83 FF 26           - cmp edi,26
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"Update version number"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Aodix.exe
+  Version: 
+  Date   : 2022-01-31
+  Author : j
+
+  Alters the version number and window title.
+}
+
+define(version_addr,"Aodix.exe"+16DA)
+define(old_version,69 10 00 00) // 4201
+define(new_version,6A 10 00 00) // 4202
+
+define(string_addr,"Aodix.exe"+2D386)
+// "(Licensed Version)"
+define(old_string,28 4C 69 63 65 6E 73 65 64 20 56 65 72 73 69 6F 6E 29)
+// "(Patched Version!)"
+define(new_string,28 50 61 74 63 68 65 64 20 56 65 72 73 69 6F 6E 21 29)
+
+[ENABLE]
+
+assert(version_addr,old_version)
+assert(string_addr,old_string)
+
+version_addr:
+  db new_version
+
+string_addr:
+  db new_string
+
+[DISABLE]
+
+version_addr:
+  db old_version
+
+string_addr:
+  db old_string
+
+</AssemblerScript>
+        </CheatEntry>
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
