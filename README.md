@@ -25,6 +25,7 @@ You must have [Aodix v4.2.0.1](https://web.archive.org/web/20070819041559/http:/
     - **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
 - Features
     - **Set length shortcut:** Adds a shortcut (`` ` ``/`~` key) to set the length of events to end at the cursor. All events in the track overlapping the cursor are cut. If none are overlapping, the last event(s) before the cursor are extended.
+- more to come!
 
 ## File repair instructions
 
