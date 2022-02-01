@@ -8,9 +8,6 @@ I have created an unofficial patched version of Aodix which fixes this bug and o
 
 In the process of creating these patches, I reverse-engineered and documented the `.adx` file format, as well as the internal memory layout of the program. See [adx-spec.txt](https://github.com/vanjac/aodix-repair/blob/master/adx-spec.txt) and [memory-layout.txt](https://github.com/vanjac/aodix-repair/blob/master/memory-layout.txt).
 
-## Requirements
-
-
 ## Installation instructions
 
 You must have [Aodix v4.2.0.1](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html) installed already.
