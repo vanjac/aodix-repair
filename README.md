@@ -24,7 +24,7 @@ You must have [Aodix v4.2.0.1](https://web.archive.org/web/20070819041559/http:/
     - **Fix VST path bug:** Fixes a bug that causes some VSTs to save with corrupted paths, preventing them from being loaded again.
     - **Fix Bounce panel MIDI crash:** Fixes a crash triggered by MIDI input while the Bounce panel is open.
 - Features
-    - **Set length shortcut:** Adds a shortcut (`` ` ``/`~` key) to set the length of events to end at the cursor. All events overlapping the cursor are cut. If none are overlapping, the last event(s) before the cursor are extended.
+    - **Set length shortcut:** Adds a shortcut (`` ` ``/`~` key) to set the length of events to end at the cursor. All events in the track overlapping the cursor are cut. If none are overlapping, the last event(s) before the cursor are extended.
 
 ## File repair instructions
 
