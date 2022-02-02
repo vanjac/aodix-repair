@@ -6,7 +6,7 @@ Aodix still works well on modern systems, and has a unique combination of ideas 
 
 I have created an unofficial patched version of Aodix which fixes this bug and others. I have also written a Python script which can automatically repair old corrupted project files under certain circumstances.
 
-In the process of creating these patches, I reverse-engineered and documented the `.adx` file format, as well as the internal memory layout of the program. See [adx-spec.txt](https://github.com/vanjac/aodix-repair/blob/master/adx-spec.txt) and [memory-layout.txt](https://github.com/vanjac/aodix-repair/blob/master/memory-layout.txt).
+In the process of creating these patches, I reverse-engineered and documented the `.adx` file format, along with aspects of the internal workings of Aodix. All documentation is on [the wiki](https://github.com/vanjac/aodix-repair/wiki).
 
 ## Installation instructions
 
@@ -40,7 +40,6 @@ It will print a list of all VST paths, and whether it had to repair each of them
 ## Other resources
 
 - [Archive of skins, older versions, and related software](http://www.oldschooldaw.com/forums/index.php/topic,7316.0.html)
-- [Aodix undocumented features](https://github.com/vanjac/aodix-repair/blob/master/undocumented.md)
 
 ## Development information
 
