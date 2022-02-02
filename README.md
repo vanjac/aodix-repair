@@ -37,10 +37,6 @@ In a terminal, run the python script on the `.adx` file to repair: `python aodix
 
 It will print a list of all VST paths, and whether it had to repair each of them.
 
-## Other resources
-
-- [Archive of skins, older versions, and related software](http://www.oldschooldaw.com/forums/index.php/topic,7316.0.html)
-
 ## Development information
 
 Patches are developed using [Cheat Engine](https://www.cheatengine.org/), which allows patching the application while it's running using code injection. Development is done in the `Aodix.CT` cheat table. To patch the executable, I have created a binary patcher script `patcher.py`, which reads a list of patched memory regions from `patch.txt`.
