@@ -29,7 +29,7 @@ You must have [Aodix v4.2.0.1](https://web.archive.org/web/20070819041559/http:/
 
 ## File repair instructions
 
-If you have old files that Aodix can't read, you can use the "aodix-repair" script to repair them. You will need [Python 3](https://www.python.org/downloads/).
+If you have old files that Aodix can't read, you can use the [aodix-repair.py](https://github.com/vanjac/aodix-repair/blob/master/aodix-repair.py) script to repair them. You will need [Python 3](https://www.python.org/downloads/).
 
 **Note:** The script can only work automatically if the paths to your VST folders (in Aodix Configuration settings) contained **at least 33 characters** when the file was saved. For example: `C:\Program Files (x86)\VSTPlugins` is 33 characters long, but `C:\VST` is only 6 characters and can't be repaired by the script.
 
@@ -39,4 +39,4 @@ It will print a list of all VST paths, and whether it had to repair each of them
 
 ## Development information
 
-Patches are developed using [Cheat Engine](https://www.cheatengine.org/), which allows patching the application while it's running using code injection. Development is done in the `Aodix.CT` cheat table. To patch the executable, I have created a binary patcher script `patcher.py`, which reads a list of patched memory regions from `patch.txt`.
+Patches are developed using [Cheat Engine](https://www.cheatengine.org/), which allows patching the application while it's running using code injection. Development is done in the [Aodix.CT](https://github.com/vanjac/aodix-repair/blob/master/Aodix.CT) cheat table. To patch the executable, I have created a binary patcher script [patcher.py](https://github.com/vanjac/aodix-repair/blob/master/patcher.py), which reads a list of patched memory regions from [patch.txt](https://github.com/vanjac/aodix-repair/blob/master/patch.txt).
