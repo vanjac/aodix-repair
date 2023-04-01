@@ -1,3 +1,9 @@
+# This project has moved
+
+Aodix was recently made open source, making this work on executable patching unnecessary.
+
+I will be continuing development in my fork of the original source: [aodix-enhanced](https://github.com/vanjac/aodix-enhanced/).
+
 # Aodix Repair
 
 [Aodix](https://web.archive.org/web/20070819041559/http://www.aodix.com/pageaodixv4.html) was a music [sequencer](https://en.wikipedia.org/wiki/Music_sequencer) / [tracker](https://en.wikipedia.org/wiki/Music_tracker) program for Windows developed by Arguru Software. Unfortunately [the developer](https://en.wikipedia.org/wiki/Juan_Antonio_Arguelles_Rius) died in 2007, making v4.2.0.1 the final version of Aodix.
